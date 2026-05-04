@@ -2,7 +2,7 @@ import { CartItem } from "@/types";
 
 export function getTotals(cart: CartItem[]) {
   const subtotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + (item.price || 0) * (item.quantity || 0),
     0
   );
 
@@ -16,6 +16,12 @@ export function getTotals(cart: CartItem[]) {
   };
 }
 
-export function formatCurrency(value: number) {
-  return `$${value.toFixed(2)}`;
+// ✅ safer + more robust
+export function formatCurrency(value?: number) {
+  const safeValue = Number(value ?? 0);
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(safeValue);
 }

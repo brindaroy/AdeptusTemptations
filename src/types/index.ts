@@ -26,6 +26,6 @@ export type Order = {
   subtotal: number;
   tax: number;
   total: number;
-  status: "received" | "preparing" | "ready";
+  status: "received" | "preparing" | "ready" | "completed";
   createdAt: string;
 };
